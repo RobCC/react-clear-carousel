@@ -1,6 +1,6 @@
 {
   "name": "react-clear-carousel",
-  "version": "0.1.0-beta.1",
+  "version": "0.1.4-beta.1",
   "description": "A test",
   "main": "build/index.js",
   "scripts": {
@@ -16,15 +16,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RobCC/web-playground.git"
+    "url": "git+https://github.com/RobCC/react-clear-carousel.git"
   },
   "author": "robcc",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/RobCC/web-playground/issues"
+    "url": "https://github.com/RobCC/react-clear-carousel/issues"
   },
   "files": [
-    "dist"
+    "build/index.js",
+    "build/index.css"
   ],
   "jest": {
     "setupFilesAfterEnv": [
@@ -37,7 +38,7 @@
       "^#/(.*)": "<rootDir>/src/$1"
     }
   },
-  "homepage": "https://github.com/RobCC/web-playground#readme",
+  "homepage": "https://github.com/RobCC/react-clear-carousel#readme",
   "peerDependencies": {
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
