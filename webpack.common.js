@@ -1,4 +1,5 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Sass = require('sass');
 const path = require('path');
@@ -35,10 +36,10 @@ function cssLoaders(mode) {
   return loaders;
 }
 
-module.exports = (env, { mode }) => ({
+module.exports = (env, { mode }, extraPlugins = []) => ({
   context: path.resolve(__dirname, './'),
   entry: [
-    path.resolve(__dirname, './src/index.js'),
+    path.resolve(__dirname, './src/index.tsx'),
   ],
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -53,6 +54,18 @@ module.exports = (env, { mode }) => ({
   },
   module: {
     rules: [
+      {
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+          },
+          {
+            loader: 'ts-loader',
+          },
+        ],
+      },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
@@ -85,5 +98,6 @@ module.exports = (env, { mode }) => ({
   plugins: [
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({ filename: 'index.css' }),
+    ...extraPlugins,
   ],
 });

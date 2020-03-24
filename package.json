@@ -1,6 +1,6 @@
 {
   "name": "react-clear-carousel",
-  "version": "0.1.4-beta.2",
+  "version": "0.1.4-beta.3",
   "description": "A configurable carousel for React",
   "main": "dist/index.js",
   "keywords": [],
@@ -60,6 +60,7 @@
     "stylelint": "^13.2.1",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-scss": "^3.16.0",
+    "ts-loader": "^6.2.2",
     "typescript": "^3.8.3",
     "webpack": "^4.42.0",
     "webpack-cli": "^3.3.11",
