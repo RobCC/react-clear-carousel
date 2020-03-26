@@ -5,7 +5,6 @@ const common = require('./webpack.common.js');
 const pkg = require('./package.json');
 
 module.exports = (env, options) => merge(common(env, options), {
-  mode: 'production',
   devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, './dist'),

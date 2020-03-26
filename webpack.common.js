@@ -1,4 +1,5 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { DefinePlugin } = require('webpack');
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Sass = require('sass');
@@ -96,6 +97,9 @@ module.exports = (env, { mode }, extraPlugins = []) => ({
     },
   },
   plugins: [
+    new DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(mode),
+    }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({ filename: 'index.css' }),
     ...extraPlugins,

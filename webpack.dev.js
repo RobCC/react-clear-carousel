@@ -7,7 +7,6 @@ module.exports = (env, options) => merge(common(env, options, [
     template: 'src/index.html',
   }),
 ]), {
-  mode: 'development',
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist',
