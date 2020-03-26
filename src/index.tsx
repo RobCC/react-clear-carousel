@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-
 import Carousel from  './Carousel';
 
 if (process.env.NODE_ENV !== 'production') {
+  const React = require('react');
+  const ReactDOM = require("react-dom");
+
   console.log(`Currently on ${process.env.NODE_ENV}`);
 
   document.body.style.margin = '0';
