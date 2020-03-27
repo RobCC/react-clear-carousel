@@ -89,7 +89,7 @@ module.exports = (env, { mode }, extraPlugins = []) => ({
     ],
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {
       '#': path.resolve(__dirname, './src'),
       '~': path.resolve(__dirname, './'),

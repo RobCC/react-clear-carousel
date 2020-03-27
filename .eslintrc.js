@@ -7,8 +7,9 @@ module.exports = {
     es6: true
   },
   extends: [
-    'plugin:react/recommended',
     'airbnb',
+    'plugin:react/recommended',
+    'plugin:import/typescript',
   ],
   globals: {
     Atomics: 'readonly',
@@ -23,9 +24,21 @@ module.exports = {
   },
   plugins: [
     'react',
-    // '@typescript-eslint'
+    '@typescript-eslint'
   ],
+
   rules: {
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        'js': 'never',
+        'jsx': 'never',
+        'ts': 'warn',
+        'tsx': 'warn'
+      }
+    ],
+    'linebreak-style': 0,
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'react/require-default-props': 0,
   }
