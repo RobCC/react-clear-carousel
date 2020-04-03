@@ -1,4 +1,4 @@
-import Carousel from './Carousel';
+import Carousel from './Carousel/Carousel';
 
 /* eslint-disable global-require */
 if (process.env.NODE_ENV !== 'production') {

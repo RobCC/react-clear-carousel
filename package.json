@@ -73,6 +73,6 @@
     "react-dom": "^16.13.1"
   },
   "dependencies": {
-    "weak-key": "^1.0.2"
+    "nanoid": "^3.0.2"
   }
 }

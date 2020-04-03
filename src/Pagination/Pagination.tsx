@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { nanoid } from 'nanoid';
 
 import styles from './pagination.scss';
 
@@ -10,7 +11,11 @@ type PaginationProps = {
 function getPages(totalItems: number, itemsDisplayed: number): JSX.Element[] {
   const availablePages: number = Math.ceil(totalItems / itemsDisplayed);
 
-  return [...Array(availablePages)].map((_, i) => <li key={`page-${i}`} className="" />);
+  return [...Array(availablePages)].map(() => {
+    const [key] = useState(nanoid);
+
+    return <li key={key} className="" />;
+  });
 }
 
 const Pagination = ({ totalItems, itemsDisplayed }: PaginationProps) => {

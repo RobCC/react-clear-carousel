@@ -1,9 +1,9 @@
 import React, {
   useRef, useState, useCallback, useImperativeHandle,
 } from 'react';
-import key from 'weak-key';
+import { nanoid } from 'nanoid';
 
-import DefaultPagination from '../Pagination';
+import DefaultPagination from '../Pagination/Pagination';
 
 import styles from './carousel.scss';
 
@@ -32,7 +32,7 @@ const Carousel = React.forwardRef(({
   arrows = false,
   paging = false,
   transitionTime = 200,
-  easing = 'linear'
+  easing = 'linear',
 }: CarouselProps, ref) => {
   const [axis, setAxis] = useState(0);
   const [isAnimating, setAnimation] = useState(false);
@@ -41,9 +41,8 @@ const Carousel = React.forwardRef(({
   const itemWidth = getItemWidth(itemsDisplayed);
   const swimlaneWidth = calcSwimlaneWidth(itemWidth, items.length);
 
-  const getMaxAxis = useCallback(
-    () => -(swimlaneWidth - (itemWidth * itemsDisplayed)), [itemWidth, swimlaneWidth, itemsDisplayed],
-  );
+  const getMaxAxis = useCallback(() => -(swimlaneWidth - (itemWidth * itemsDisplayed)),
+    [itemWidth, swimlaneWidth, itemsDisplayed]);
 
   const goBack = useCallback(() => {
     if (!isAnimating && axis < 0) {
@@ -69,17 +68,21 @@ const Carousel = React.forwardRef(({
     goForward,
   }));
 
-  const mappedItems = items.map((item) => (
-    <li
-      key={key(item)}
-      className={styles.item}
-      style={{
-        width: itemWidth,
-      }}
-    >
-      {item}
-    </li>
-  ));
+  const mappedItems = items.map((item) => {
+    const [key] = useState(nanoid);
+
+    return (
+      <li
+        key={key}
+        className={styles.item}
+        style={{
+          width: itemWidth,
+        }}
+      >
+        {item}
+      </li>
+    );
+  });
 
   return (
     <div ref={swimlaneRef} className={styles.wrapper}>
@@ -110,5 +113,7 @@ const Carousel = React.forwardRef(({
     </div>
   );
 });
+
+Carousel.displayName = 'Carousel';
 
 export default Carousel;
