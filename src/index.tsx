@@ -1,5 +1,7 @@
 import Carousel from './Carousel/Carousel';
 
+// TODO: Create aliases
+
 /* eslint-disable global-require */
 if (process.env.NODE_ENV !== 'production') {
   const React = require('react');

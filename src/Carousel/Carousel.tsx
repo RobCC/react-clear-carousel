@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import { nanoid } from 'nanoid';
 
+import { CarouselProps, CarouselRef } from '../types';
 import DefaultPagination from '../Pagination/Pagination';
 
 import styles from './carousel.scss';
@@ -17,16 +18,9 @@ function getItemWidth(itemsDisplayed: number): number {
   return innerWidth / itemsDisplayed;
 }
 
-type CarouselProps = {
-  items: any[],
-  itemsDisplayed: number,
-  arrows?: boolean,
-  paging?: boolean,
-  transitionTime?: number,
-  easing?: string,
-};
+// TODO: Add useReducer
 
-const Carousel = React.forwardRef(({
+const Carousel = React.forwardRef<CarouselRef, CarouselProps>(({
   items,
   itemsDisplayed = 3,
   arrows = false,
@@ -58,7 +52,6 @@ const Carousel = React.forwardRef(({
     }
   }, [axis, itemWidth, isAnimating, getMaxAxis]);
 
-
   const onTransitionEnd = useCallback(() => {
     setAnimation(false);
   }, []);
@@ -68,7 +61,8 @@ const Carousel = React.forwardRef(({
     goForward,
   }));
 
-  const mappedItems = items.map((item) => {
+  // TODO: Refactor this
+  const mappedItems: React.ReactNode[] = items.map((item) => {
     const [key] = useState(nanoid);
 
     return (
