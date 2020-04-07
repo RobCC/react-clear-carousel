@@ -26,20 +26,24 @@ module.exports = {
     'react',
     '@typescript-eslint'
   ],
-
   rules: {
-    'import/extensions': [
-      'error',
-      'ignorePackages',
-      {
-        'js': 'never',
-        'jsx': 'never',
-        'ts': 'warn',
-        'tsx': 'warn'
-      }
-    ],
     'linebreak-style': 0,
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'react/require-default-props': 0,
-  }
+    'import/extensions': ['error', 'ignorePackages', {
+      'js': 'never',
+      'jsx': 'never',
+      'ts': 'never',
+      'tsx': 'never',
+    }],
+    'import/no-extraneous-dependencies': ['error', {
+      'devDependencies': [
+        '**/webpack.*.js',
+        '**/*.test.js',
+        '**/*.test.jsx',
+        '**/*.test.ts',
+        '**/*.test.tsx',
+      ],
+    }],
+  },
 }

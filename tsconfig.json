@@ -11,7 +11,12 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "esModuleInterop": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "baseUrl": ".",
+    "paths": {
+      "#/*": ["./src/*"],
+      "~/*": ["./*"]
+    }
   },
   "include": [
     "./src"
