@@ -8,14 +8,14 @@ import DefaultPagination from '../Pagination/Pagination';
 
 import styles from './carousel.scss';
 
-function calcSwimlaneWidth(width: number, length: number): number {
+function getSwimlaneWidth(width: number, length: number): number {
   return width * length;
 }
 
 function getItemWidth(itemsDisplayed: number): number {
   const { innerWidth } = window;
 
-  return innerWidth / itemsDisplayed;
+  return +(innerWidth / itemsDisplayed).toFixed(3);
 }
 
 // TODO: Add useReducer
@@ -33,7 +33,7 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>(({
   const swimlaneRef = useRef(null);
 
   const itemWidth = getItemWidth(itemsDisplayed);
-  const swimlaneWidth = calcSwimlaneWidth(itemWidth, items.length);
+  const swimlaneWidth = getSwimlaneWidth(itemWidth, items.length);
 
   const getMaxAxis = useCallback(() => -(swimlaneWidth - (itemWidth * itemsDisplayed)),
     [itemWidth, swimlaneWidth, itemsDisplayed]);
@@ -41,14 +41,14 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>(({
   const goBack = useCallback(() => {
     if (!isAnimating && axis < 0) {
       setAnimation(true);
-      setAxis(axis + itemWidth);
+      setAxis(+(axis + itemWidth).toFixed(3));
     }
   }, [axis, itemWidth, isAnimating]);
 
   const goForward = useCallback(() => {
     if (!isAnimating && axis > getMaxAxis()) {
       setAnimation(true);
-      setAxis(axis - itemWidth);
+      setAxis(+(axis - itemWidth).toFixed(3));
     }
   }, [axis, itemWidth, isAnimating, getMaxAxis]);
 
@@ -61,9 +61,10 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>(({
     goForward,
   }));
 
-  // TODO: Refactor this
-  const mappedItems: React.ReactNode[] = items.map((item) => {
+  // TODO: Refactor this, prevent re-rendering
+  const mappedItems: React.ReactNode[] = items.map((item, i) => {
     const [key] = useState(nanoid);
+    console.log('mappin', i)
 
     return (
       <li
@@ -77,6 +78,8 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>(({
       </li>
     );
   });
+
+  // useEffect(, [])
 
   return (
     <div ref={swimlaneRef} className={styles.wrapper}>

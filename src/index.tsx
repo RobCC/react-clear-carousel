@@ -32,7 +32,7 @@ if (process.env.NODE_ENV !== 'production') {
       itemsDisplayed={3}
       items={
         items.map((e) => <div key={e.id}>{e.value}</div>)
-    }
+      }
     />,
     document.getElementById('root'),
   );

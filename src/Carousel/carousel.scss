@@ -14,20 +14,15 @@
 }
 
 li.item {
-  border: 1px solid #eaeaea;
   box-sizing: border-box;
   display: inline-block;
 
+  /* Testing purposes */
   & > div {
     border: 5px solid red;
     padding: 10px;
     margin: 10px;
   }
-}
-
-.page {
-  display: inline-block;
-  margin: 0 5px;
 }
 
 .buttonWrapper {
