@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
 
-import { PaginationProps } from '../types';
+import { PaginationProps } from '../../types';
 import styles from './pagination.scss';
 
 function getPages(totalItems: number, itemsDisplayed: number): React.ReactElement[] {

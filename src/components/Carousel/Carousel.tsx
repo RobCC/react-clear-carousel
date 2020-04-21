@@ -2,7 +2,7 @@ import React, {
   useRef, useState, useMemo, useCallback, useImperativeHandle,
 } from 'react';
 
-import { CarouselProps, CarouselRef } from '../types';
+import { CarouselProps, CarouselRef } from '../../types';
 import DefaultPagination from '../Pagination/Pagination';
 
 import styles from './carousel.scss';
