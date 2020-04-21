@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 import { PaginationProps } from '../types';
 import styles from './pagination.scss';
 
-function getPages(totalItems: number, itemsDisplayed: number): React.ReactNode[] {
+function getPages(totalItems: number, itemsDisplayed: number): React.ReactElement[] {
   const availablePages: number = Math.ceil(totalItems / itemsDisplayed);
 
   return [...Array(availablePages)].map(() => {

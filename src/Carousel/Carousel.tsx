@@ -1,7 +1,6 @@
 import React, {
-  useRef, useState, useCallback, useImperativeHandle,
+  useRef, useState, useMemo, useCallback, useImperativeHandle,
 } from 'react';
-import { nanoid } from 'nanoid';
 
 import { CarouselProps, CarouselRef } from '../types';
 import DefaultPagination from '../Pagination/Pagination';
@@ -16,6 +15,20 @@ function getItemWidth(itemsDisplayed: number): number {
   const { innerWidth } = window;
 
   return +(innerWidth / itemsDisplayed).toFixed(3);
+}
+
+function generateItems(items: React.ReactElement[], itemWidth: number): React.ReactElement[] {
+  return items.map((item, i) => (
+    <li
+      key={`item_${item?.key ?? i}`}
+      className={styles.item}
+      style={{
+        width: itemWidth,
+      }}
+    >
+      {item}
+    </li>
+  ));
 }
 
 // TODO: Add useReducer
@@ -61,25 +74,10 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>(({
     goForward,
   }));
 
-  // TODO: Refactor this, prevent re-rendering
-  const mappedItems: React.ReactNode[] = items.map((item, i) => {
-    const [key] = useState(nanoid);
-    console.log('mappin', i)
-
-    return (
-      <li
-        key={key}
-        className={styles.item}
-        style={{
-          width: itemWidth,
-        }}
-      >
-        {item}
-      </li>
-    );
-  });
-
-  // useEffect(, [])
+  const mappedItems: React.ReactElement[] = useMemo(
+    () => generateItems(items, itemWidth),
+    [items, itemWidth],
+  );
 
   return (
     <div ref={swimlaneRef} className={styles.wrapper}>
