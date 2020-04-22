@@ -5,7 +5,7 @@ export const initialState: CarouselState = {
   axis: 0,
 };
 
-export function reducer(state: any, action: CarouselAction): CarouselState {
+export function reducer(state: CarouselState, action: CarouselAction): CarouselState {
   switch(action.type) {
     case 'forward':
       return {

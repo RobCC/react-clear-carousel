@@ -1,5 +1,5 @@
 import React, {
-  useRef, useState, useMemo, useCallback, useImperativeHandle, useReducer,
+  useRef, useMemo, useCallback, useImperativeHandle, useReducer,
 } from 'react';
 
 import { CarouselProps, CarouselRef } from '#/types';
@@ -23,10 +23,8 @@ function generateItems(items: React.ReactElement[], itemWidth: number): React.Re
   ));
 }
 
-// TODO: Add useReducer
-
 const Carousel = React.forwardRef<CarouselRef, CarouselProps>(({
-  items,
+  items = [],
   itemsDisplayed = 3,
   arrows = false,
   paging = false,
