@@ -4,18 +4,9 @@ import React, {
 
 import { CarouselProps, CarouselRef } from '../../types';
 import DefaultPagination from '../Pagination/Pagination';
+import { getItemWidth, getSwimlaneWidth, getMaxScroll } from '../../utils';
 
 import styles from './carousel.scss';
-
-function getSwimlaneWidth(width: number, length: number): number {
-  return width * length;
-}
-
-function getItemWidth(itemsDisplayed: number): number {
-  const { innerWidth } = window;
-
-  return +(innerWidth / itemsDisplayed).toFixed(3);
-}
 
 function generateItems(items: React.ReactElement[], itemWidth: number): React.ReactElement[] {
   return items.map((item, i) => (
@@ -47,9 +38,12 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>(({
 
   const itemWidth = getItemWidth(itemsDisplayed);
   const swimlaneWidth = getSwimlaneWidth(itemWidth, items.length);
+  const maxScroll = getMaxScroll(itemWidth, swimlaneWidth, itemsDisplayed);
 
-  const getMaxAxis = useCallback(() => -(swimlaneWidth - (itemWidth * itemsDisplayed)),
-    [itemWidth, swimlaneWidth, itemsDisplayed]);
+  const mappedItems: React.ReactElement[] = useMemo(
+    () => generateItems(items, itemWidth),
+    [items, itemWidth],
+  );
 
   const goBack = useCallback(() => {
     if (!isAnimating && axis < 0) {
@@ -59,11 +53,11 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>(({
   }, [axis, itemWidth, isAnimating]);
 
   const goForward = useCallback(() => {
-    if (!isAnimating && axis > getMaxAxis()) {
+    if (!isAnimating && axis > maxScroll) {
       setAnimation(true);
       setAxis(+(axis - itemWidth).toFixed(3));
     }
-  }, [axis, itemWidth, isAnimating, getMaxAxis]);
+  }, [axis, itemWidth, isAnimating, maxScroll]);
 
   const onTransitionEnd = useCallback(() => {
     setAnimation(false);
@@ -73,11 +67,6 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>(({
     goBack,
     goForward,
   }));
-
-  const mappedItems: React.ReactElement[] = useMemo(
-    () => generateItems(items, itemWidth),
-    [items, itemWidth],
-  );
 
   return (
     <div ref={swimlaneRef} className={styles.wrapper}>
