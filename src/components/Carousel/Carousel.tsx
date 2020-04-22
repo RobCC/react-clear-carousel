@@ -2,9 +2,9 @@ import React, {
   useRef, useState, useMemo, useCallback, useImperativeHandle,
 } from 'react';
 
-import { CarouselProps, CarouselRef } from '../../types';
+import { CarouselProps, CarouselRef } from '#/types';
 import DefaultPagination from '../Pagination/Pagination';
-import { getItemWidth, getSwimlaneWidth, getMaxScroll } from '../../utils';
+import { getItemWidth, getSwimlaneWidth, getMaxScroll } from '#/utils';
 
 import styles from './carousel.scss';
 
@@ -38,7 +38,7 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>(({
 
   const itemWidth = getItemWidth(itemsDisplayed);
   const swimlaneWidth = getSwimlaneWidth(itemWidth, items.length);
-  const maxScroll = getMaxScroll(itemWidth, swimlaneWidth, itemsDisplayed);
+  const maxScroll = getMaxScroll(swimlaneWidth, itemWidth, itemsDisplayed);
 
   const mappedItems: React.ReactElement[] = useMemo(
     () => generateItems(items, itemWidth),
