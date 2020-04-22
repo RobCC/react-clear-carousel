@@ -1,11 +1,12 @@
 import React, {
-  useRef, useState, useMemo, useCallback, useImperativeHandle,
+  useRef, useState, useMemo, useCallback, useImperativeHandle, useReducer,
 } from 'react';
 
 import { CarouselProps, CarouselRef } from '#/types';
 import DefaultPagination from '../Pagination/Pagination';
 import { getItemWidth, getSwimlaneWidth, getMaxScroll } from '#/utils';
 
+import { reducer, initialState } from './carouselReducer';
 import styles from './carousel.scss';
 
 function generateItems(items: React.ReactElement[], itemWidth: number): React.ReactElement[] {
@@ -32,8 +33,7 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>(({
   transitionTime = 200,
   easing = 'linear',
 }: CarouselProps, ref) => {
-  const [axis, setAxis] = useState(0);
-  const [isAnimating, setAnimation] = useState(false);
+  const [{ isTransitioning, axis }, dispatch] = useReducer(reducer, initialState);
   const swimlaneRef = useRef(null);
 
   const itemWidth = getItemWidth(itemsDisplayed);
@@ -46,21 +46,27 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>(({
   );
 
   const goBack = useCallback(() => {
-    if (!isAnimating && axis < 0) {
-      setAnimation(true);
-      setAxis(+(axis + itemWidth).toFixed(3));
+    if (!isTransitioning && axis < 0) {
+      dispatch({
+        type: 'back',
+        axis: +(axis + itemWidth).toFixed(3),
+      });
     }
-  }, [axis, itemWidth, isAnimating]);
+  }, [axis, itemWidth, isTransitioning]);
 
   const goForward = useCallback(() => {
-    if (!isAnimating && axis > maxScroll) {
-      setAnimation(true);
-      setAxis(+(axis - itemWidth).toFixed(3));
+    if (!isTransitioning && axis > maxScroll) {
+      dispatch({
+        type: 'forward',
+        axis: +(axis - itemWidth).toFixed(3),
+      });
     }
-  }, [axis, itemWidth, isAnimating, maxScroll]);
+  }, [axis, itemWidth, isTransitioning, maxScroll]);
 
   const onTransitionEnd = useCallback(() => {
-    setAnimation(false);
+    dispatch({
+      type: 'finished',
+    });
   }, []);
 
   useImperativeHandle(ref, () => ({

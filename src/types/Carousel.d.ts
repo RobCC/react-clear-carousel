@@ -11,3 +11,13 @@ export type CarouselRef = {
   goBack(): void,
   goForward(): void,
 };
+
+export type CarouselState = {
+  isTransitioning: boolean,
+  axis: number,
+}
+
+export type CarouselAction =
+  | { type: 'forward', axis: number  }
+  | { type: 'back', axis: number }
+  | { type: 'finished'};
