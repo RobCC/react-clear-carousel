@@ -31,7 +31,11 @@ if (process.env.NODE_ENV !== 'production') {
       paging
       itemsDisplayed={3}
       items={
-        items.map((e) => <div key={e.id}>{e.value}</div>)
+        items.map((e) => <div key={e.id} style={{
+          border: '5px solid red',
+          padding: 10,
+          margin: 10,
+        }}>{e.value}</div>)
       }
     />,
     document.getElementById('root'),
